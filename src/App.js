@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React,{useState} from 'react';
 import './App.css';
 
-function App() {
+const App =()=> {
+  let [username,setusername] = useState("");
+  let [userno,setuserno] = useState ("")
+  function submit (){
+    var usersdata = JSON.parse(localStorage.getItem("usersdata")) || [];
+    var userdata = {
+      username : username,
+      userno :userno
+    };
+    usersdata.push(userdata);
+    localStorage.setItem ("usersdata",JSON.stringify(usersdata))
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='body' >
+      <h1>username : {username}</h1>
+      <input type="text"  onChange={(e)=>{setusername(e.target.value)}}></input>
+      <h1> userno : {userno}</h1>
+      <input type="number" onChange={(e)=>{setuserno(e.target.value)}}></input>
+      <button onClick={submit}>submit</button>
+      </div>
     </div>
   );
 }
